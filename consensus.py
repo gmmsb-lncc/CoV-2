@@ -13,7 +13,7 @@ from Bio import SeqIO
 from Bio import AlignIO
 from Bio.Align import AlignInfo
 
-#import reducing
+#import 
 
 
 def main():
@@ -80,7 +80,7 @@ def canonical_consensus(alignment_, name_canonical_consensus_):
 def verify_domain_scores(matrix_temp_):
 
     df = pd.DataFrame(matrix_temp_)
-    df = reducing.Reducer().reduce(df)
+    #df = reducing.Reducer().reduce(df)
     result = []
     #print(df)
     for col in df.columns:
@@ -207,4 +207,23 @@ def find_seq_best_score(domain_score_, idx_line_, alignment_):
 
 
 
-main()
+if __name__=="__main__":
+
+    # input MSA
+    alignment = AlignIO.read(sys.argv[1], "fasta")
+
+    # convert to matrix
+    matrix_from_align, rows = create_matrix(alignment)
+
+    # verifyng domains
+    domain_scores, idx_line = verify_domain_scores(matrix_from_align)
+
+    # calculate score
+    seq_score = find_seq_best_score(domain_scores, idx_line, alignment)
+
+    # treshold occurencies >= 1% of sequences
+    seq_score[seq_score['OCCUR'] >= ((rows)/100)].to_csv(sys.argv[2], index=False)
+
+    # canonical consensus
+    name_canonical_consensus = sys.argv[3]
+    canonical_consensus(alignment, name_canonical_consensus)
