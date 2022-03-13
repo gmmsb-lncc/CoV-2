@@ -1,3 +1,5 @@
+# uso: python3 script.py msa_input.fasta  output_count.csv
+
 import sys
 import numpy as np
 import pandas as pd
