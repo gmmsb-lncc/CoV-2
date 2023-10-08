@@ -4,7 +4,7 @@ The procedure from obtaining the sequences, building the datasets, describing th
 
 The following image displays the workflow undertaken, acquisition of sequences, and construction of datasets for multiple alignment. After identifying the relevant features contained in the multiple alignment, structural modeling will be responsible for creating three-dimensional models for the subsequent application of virtual screening for the repurposing of anti-SARS-CoV-2 drugs.
 
-![Alt text da image](https://github.com/gmmsb-lncc/CoV-2/blob/main/workflow.png)
+![Alt text da image](https://github.com/sulfierry/msa_exploring/blob/main/workflow.png)
 
 # Sequence Acquisition
 
