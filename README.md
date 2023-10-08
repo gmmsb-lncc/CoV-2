@@ -1,4 +1,8 @@
-In this section, the entire procedure is described, from obtaining the sequences, building the datasets, describing and the impacts of non-synonymous variations, applying multiple alignment, and structural modeling, culminating in virtual screening for repurposing new drugs that will be discussed in detail. 
+# SARS-CoV-2 multiple sequece alignment protocol
+
+The procedure from obtaining the sequences, building the datasets, describing the impacts of non-synonymous variations and applying multiple alignment, will be described. 
+
+The following image displays the workflow undertaken, acquisition of sequences, and construction of datasets for multiple alignment. After identifying the relevant features contained in the multiple alignment, structural modeling will be responsible for creating three-dimensional models for the subsequent application of virtual screening for the repurposing of anti-SARS-CoV-2 drugs.
 
 ![Alt text da image](https://github.com/gmmsb-lncc/CoV-2/blob/main/workflow.png)
 
@@ -32,10 +36,16 @@ A multiple sequence alignment (MSA) was performed using the MAFFT software (Mult
 
 ![Alt text image](https://github.com/gmmsb-lncc/CoV-2/blob/main/msa.png)
 
-After processing the MSA, the variations between the amino acid residues for each of the subsets described here were quantified (fasta_MSA_count_mutations). For each reference residue contained in the study sequences, the physicochemical properties of the amino acids concerning the reference sequence Wuhan-Hu-1 (NCBI YP009724390.1) were annotated.
+After processing the MSA, the variations between the amino acid residues for each of the subsets described here were quantified (fasta_MSA_count_mutations). For each reference residue contained in the study sequences, the physicochemical properties of the amino acids concerning the reference sequence Wuhan-Hu-1 (NCBI YP009724390.1) were annotated. Subsequently, the most frequent residues in each set were identified, and from this, the consensus sequence was sought. The Python algorithm, whose function is the identification of the consensus sequences (consensus_msa), is present in the current directory.
 
-Subsequently, the most frequent residues in each set were identified, and from this, the consensus sequence was sought. The Python algorithm, whose function is the identification of the consensus sequences (consensus_msa), is present in the current directory.
+## The analysis of 1,606,951 sequences revealed that there are a total of 8,324 VNSs in the Spike compared to the Wuhan-Hu reference sequence (NCBI YP009724390.1) within the analyzed set. All selected variations for Spike are contained within the RBD (residues 319-541) or RBM (residues 437-508).
 
 For the visualization of the heatmap corresponding to the RBD and RBM regions, a function was built using the gmmsa package through the R language; the script (heatmap) is in the current directory. The heatmap figure is shown below. The image displays that: A) Correlation between the consensus sequences, where the variation in shade relative to the vertical reference indicates a change in the amino acid. B) Graphical representation of the consensus sequences, the gap indicates that the residue at this position underwent some variation, and the intensity of the blue color represents high prevalence of the amino acid. The less intense the blue, the lower the prevalence of the amino acid.
 
 ![Alt text image](https://github.com/gmmsb-lncc/CoV-2/blob/main/heatmap.png)
+
+It is important to note that consensus sequences generated from multiple alignments that have a high number of sequences (ranging from hundreds of thousands to millions) tend to be reliable when checking the prevalence of residues within the studied set. The previous figure containing the heatmap displays different visualization methods stemming from the multiple alignment for consensus sequences of variants whose binding domain comprises the RBD and RBM, particularly between residues 415 and 502. This range was selected for visualization because it is where the majority of the VNSs are concentrated in the respective binding domains. The regions between residues 319 to 414 and 503 to 541 did not show a high prevalence of VNSs in the consensus sequence set related to the α, β, δ, γ variants.
+
+Except for the gamma variant, all the others showed mutations that do not preserve physicochemical properties. For example, the alpha variant displays variations in the polarity of residues within the RBM (S438E, N440R), while the beta variant shows more drastic polarity changes among residues in the RBD (S359K, S359E, V395K, V395T, V395E). Similarly, the mutations in the delta variant alter the polarity (K462Q, K462F, F464Y, F464R) of the RBM region.
+
+Through the approach described in this section, it was observed that the multiple alignment of Spike sequences allowed for a comprehensive overview of the variations that occur in domains critical to its function.
