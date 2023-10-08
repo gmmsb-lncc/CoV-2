@@ -8,7 +8,7 @@ The following image displays the workflow undertaken, acquisition of sequences, 
 
 # Sequence Acquisition
 
-Currently, the largest database containing SARS-CoV-2 genomic sequences is **GISAID (Global Initiative on Sharing All Influenza Data)**, an international initiative where researchers from all over the world submit biologically obtained sequences following pre-established criteria.
+Currently, the largest database containing SARS-CoV-2 genomic sequences is **[GISAID](https://gisaid.org) (Global Initiative on Sharing All Influenza Data)**, an international initiative where researchers from all over the world submit biologically obtained sequences following pre-established criteria.
 
 From this database, 785,158 sequences were obtained containing the variants (Alpha(α), Beta(α), Delta(α), Gamma(α)) and 821,793 sequences containing the mutant trio (K417N, E484K, N501Y), totaling 1,606,951 sequences. These sets are crucial for identifying relevant mutations present in the receptor-binding domain (RBD). The data was collected between the dates 05/01/2020 and 06/01/2021.
 
@@ -16,7 +16,7 @@ It is of utmost importance to note that the announcement of the new Omicron (o) 
 
 Following is an illustration of the ectodomain of the spike protein. It consists of the S1 and S2 domains. The S1 domain contains the Receptor Binding Domain (RBD) responsible for recognizing and binding to the host cell receptor. The S2 domain is responsible for fusion and contains the putative fusion peptide (FP, in turquoise) and the heptad repeat HR1 (orange) and HR2 (brown), TM is the transmembrane domain represented in purple.
 
-![Alt text image](https://github.com/gmmsb-lncc/CoV-2/blob/main/spike_sub_units.png)
+![Alt text image](https://github.com/sulfierry/msa_exploring/blob/main/spike_sub_units.png)
 
 # Dataset Construction
 
@@ -34,7 +34,7 @@ It's clear that for a dataset containing 1,606,951 sequences, downloading every 
 
 A multiple sequence alignment (MSA) was performed using the MAFFT software (Multiple Alignment using Fast Fourier Transform) based on the previously mentioned sets, and the Spike sequence from Wuhan (NCBI YP009724390.1) was used as a reference. An illustrative visualization of the msa is shown below.
 
-![Alt text image](https://github.com/gmmsb-lncc/CoV-2/blob/main/msa.png)
+![Alt text image](https://github.com/sulfierry/msa_exploring/blob/main/msa.png)
 
 After processing the MSA, the variations between the amino acid residues for each of the subsets described here were quantified (fasta_MSA_count_mutations). For each reference residue contained in the study sequences, the physicochemical properties of the amino acids concerning the reference sequence Wuhan-Hu-1 (NCBI YP009724390.1) were annotated. Subsequently, the most frequent residues in each set were identified, and from this, the consensus sequence was sought. The Python algorithm, whose function is the identification of the consensus sequences (consensus_msa), is present in the current directory.
 
@@ -42,7 +42,7 @@ After processing the MSA, the variations between the amino acid residues for eac
 
 For the visualization of the heatmap corresponding to the RBD and RBM regions, a function was built using the gmmsa package through the R language; the script (heatmap) is in the current directory. The heatmap figure is shown below. The image displays that: A) Correlation between the consensus sequences, where the variation in shade relative to the vertical reference indicates a change in the amino acid. B) Graphical representation of the consensus sequences, the gap indicates that the residue at this position underwent some variation, and the intensity of the blue color represents high prevalence of the amino acid. The less intense the blue, the lower the prevalence of the amino acid.
 
-![Alt text image](https://github.com/gmmsb-lncc/CoV-2/blob/main/heatmap.png)
+![Alt text image](https://github.com/sulfierry/msa_exploring/blob/main/heatmap.png)
 
 It is important to note that consensus sequences generated from multiple alignments that have a high number of sequences (ranging from hundreds of thousands to millions) tend to be reliable when checking the prevalence of residues within the studied set. The previous figure containing the heatmap displays different visualization methods stemming from the multiple alignment for consensus sequences of variants whose binding domain comprises the RBD and RBM, particularly between residues 415 and 502. This range was selected for visualization because it is where the majority of the VNSs are concentrated in the respective binding domains. The regions between residues 319 to 414 and 503 to 541 did not show a high prevalence of VNSs in the consensus sequence set related to the α, β, δ, γ variants.
 
