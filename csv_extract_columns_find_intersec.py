@@ -1,42 +1,40 @@
-# uso: python3 script.py ref.csv comp.csv output_intersec.csv
-
 import pandas as pd
 import sys
 
-def find_intersec(csv_ref, csv_comp, result):
+def find_intersection(df_ref, df_comp, output_filename):
+    """
+    Find the intersection between two CSV files.
+    
+    Parameters:
+    - df_ref: DataFrame containing the reference data.
+    - df_comp: DataFrame to compare with the reference.
+    - output_filename: Name of the output CSV file.
+    
+    Returns:
+    None
+    """
+    
+    # Ensure that the first column from both dataframes are named consistently
+    df_ref.rename(columns={df_ref.columns[0]:'col1'}, inplace=True)
+    df_comp.rename(columns={df_comp.columns[0]:'col2'}, inplace=True)
+    
+    # Find the intersection
+    intersection = df_ref[df_ref['col1'].isin(df_comp['col2'])]
+    
+    # Write the intersection to the output file
+    intersection.to_csv(output_filename, columns=['col1'], index=False)
 
-	df_ref = pd.DataFrame(csv_ref)
-	df_comp = pd.DataFrame(csv_comp)
-
-
-	df_ref.rename(columns={df_ref.columns[0]:'col1'}, inplace = True)
-	df_comp.rename(columns={df_comp.columns[0]:'col2'}, inplace = True)
-
-
-	column_ref = df_ref.iloc[:,0]
-	column_comp = df_comp.iloc[:,0]
-
-	df_all = pd.concat([column_ref, column_comp], axis=1)
-
-	# df_all = arquivo.csv contendo 2 colunas
-	# col1 = referencia
-	# col2 = amostra à comparar 
-
-	df_all.columns = ["col1","col2"]
-
-	col1 = df_all.col1
-	col2 = df_all.col2
-
-	#intersec
-	intersec = df_all.loc[
-		col1.isin(col2), ['col1']
-		]
-
-	return intersec.to_csv(result,index = False)
-	
 if __name__ == "__main__":
-	csv_ref  = pd.read_csv(sys.argv[1], low_memory=False)
-	csv_comp = pd.read_csv(sys.argv[2], low_memory=False)
-	result   = sys.argv[3]
-	
-	find_intersec(csv_ref, csv_comp, result)
+    if len(sys.argv) != 4:
+        print("Usage: python3 script.py ref.csv comp.csv output_intersec.csv")
+        sys.exit(1)
+    
+    csv_ref_filename = sys.argv[1]
+    csv_comp_filename = sys.argv[2]
+    output_filename = sys.argv[3]
+    
+    # Load the data
+    df_ref = pd.read_csv(csv_ref_filename, low_memory=False)
+    df_comp = pd.read_csv(csv_comp_filename, low_memory=False)
+    
+    find_intersection(df_ref, df_comp, output_filename)
