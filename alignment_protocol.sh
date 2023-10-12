@@ -16,6 +16,13 @@ python3 csv_extract_columns_find_intersec.py "$CSV_REF" "$CSV_COMP" "$CSV_OUTPUT
 
 # Note: The next step would be the MSA using MAFFT, which is an external tool and not a script provided.
 # It's assumed that the user would execute this step separately if needed.
+# Execute MAFFT for multiple sequence alignment
+echo "Executing MAFFT for multiple sequence alignment..."
+mafft "$CSV_OUTPUT" > "$FASTA_ALIGNMENT"
+if [ $? -ne 0 ]; then
+    echo "Error executing MAFFT. Exiting."
+    exit 1
+fi
 
 # Step 2: Process the MSA to quantify the variations between the amino acid residues
 echo "Executing Step 2: Processing MSA..."
