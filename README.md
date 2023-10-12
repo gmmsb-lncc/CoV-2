@@ -46,6 +46,33 @@ For the visualization of the heatmap corresponding to the RBD and RBM regions, a
 
 It is important to note that consensus sequences generated from multiple alignments that have a high number of sequences (ranging from hundreds of thousands to millions) tend to be reliable when checking the prevalence of residues within the studied set. The previous figure containing the heatmap displays different visualization methods stemming from the multiple alignment for consensus sequences of variants whose binding domain comprises the RBD and RBM, particularly between residues 415 and 502. This range was selected for visualization because it is where the majority of the VNSs are concentrated in the respective binding domains. The regions between residues 319 to 414 and 503 to 541 did not show a high prevalence of VNSs in the consensus sequence set related to the α, β, δ, γ variants.
 
-Except for the gamma variant, all the others showed mutations that do not preserve physicochemical properties. For example, the alpha variant displays variations in the polarity of residues within the RBM (S438E, N440R), while the beta variant shows more drastic polarity changes among residues in the RBD (S359K, S359E, V395K, V395T, V395E). Similarly, the mutations in the delta variant alter the polarity (K462Q, K462F, F464Y, F464R) of the RBM region.
+Except for the gamma variant, all the others showed mutations that do not preserve physicochemical properties. For example, the alpha variant displays variations in the polarity of residues within the RBM (S438E, N440R), while the beta variant shows more drastic polarity changes among residues in the RBD (S359K, S359E, V395K, V395T, V395E). Similarly, the mutations in the delta variant alter the polarity (K462Q, K462F, F464Y, F464R) of the RBM region. Through the approach described in this section, it was observed that the multiple alignment of Spike sequences allowed for a comprehensive overview of the variations that occur in domains critical to its function.
 
-Through the approach described in this section, it was observed that the multiple alignment of Spike sequences allowed for a comprehensive overview of the variations that occur in domains critical to its function.
+**Description of the `alignment_protocol.sh` Script**
+
+1. **Input Variables Definition**
+   - The script takes in several arguments, including paths for:
+     - Reference CSV (`CSV_REF`).
+     - Comparison CSV (`CSV_COMP`).
+     - Output CSV (`CSV_OUTPUT`).
+     - Multiple Sequence Alignment (MSA) input (`MSA_INPUT`).
+     - Alignment output (`MSA_OUTPUT`).
+     - Mutation output CSV (`CSV_MUTATION_OUTPUT`).
+     - Consensus output (`CONSENSUS_OUTPUT`).
+
+2. **Step 1: Sequence Extraction**
+   - The script utilizes the Python script `csv_extract_columns_find_intersec.py` to extract sequences from the intersection of the studied sets and the Spike reference set used by GISAID.
+
+3. **Multiple Sequence Alignment (MSA) using MAFFT**
+   - The script notes that the next step would be the MSA using MAFFT, an external tool.
+   - It assumes the user would execute this step separately if needed.
+   - The script then attempts to run MAFFT.
+
+4. **Step 2: MSA Processing**
+   - The script uses the Python script `fasta_MSA_count_mutations.py` to process the MSA and quantify the variations between amino acid residues.
+
+5. **Step 3: Consensus Sequence Identification**
+   - The script uses the Python script `consensus_msa.py` to identify consensus sequences.
+
+6. **Step 4: Heatmap Visualization**
+   - The script runs the R script `heatmap_msa.R` to generate a heatmap visualization corresponding to the RBD and RBM regions.
