@@ -50,7 +50,7 @@ Except for the gamma variant, all the others showed mutations that do not preser
 
 **Description of the `alignment_protocol.sh` Script**
 
-1. **Input Variables Definition**
+**Input Variables Definition:**
    - The script takes in several arguments, including paths for:
      - Reference CSV (`CSV_REF`).
      - Comparison CSV (`CSV_COMP`).
@@ -60,19 +60,19 @@ Except for the gamma variant, all the others showed mutations that do not preser
      - Mutation output CSV (`CSV_MUTATION_OUTPUT`).
      - Consensus output (`CONSENSUS_OUTPUT`).
 
-2. **Step 1: Sequence Extraction**
+**Step 1: Sequence Extraction**
    - The script utilizes the Python script `csv_extract_columns_find_intersec.py` to extract sequences from the intersection of the studied sets and the Spike reference set used by GISAID.
 
-3. **Multiple Sequence Alignment (MSA) using MAFFT**
+**Multiple Sequence Alignment (MSA) using MAFFT:**
    - The script notes that the next step would be the MSA using MAFFT, an external tool.
    - It assumes the user would execute this step separately if needed.
    - The script then attempts to run MAFFT.
 
-4. **Step 2: MSA Processing**
+**Step 2: MSA Processing**
    - The script uses the Python script `fasta_MSA_count_mutations.py` to process the MSA and quantify the variations between amino acid residues.
 
-5. **Step 3: Consensus Sequence Identification**
+**Step 3: Consensus Sequence Identification**
    - The script uses the Python script `consensus_msa.py` to identify consensus sequences.
 
-6. **Step 4: Heatmap Visualization**
+**Step 4: Heatmap Visualization**
    - The script runs the R script `heatmap_msa.R` to generate a heatmap visualization corresponding to the RBD and RBM regions.
